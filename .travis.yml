@@ -1,0 +1,15 @@
+language: python
+os: linux
+dist: focal
+python:
+  - "3.6"
+  - "3.7"
+  - "3.8"
+
+install:
+  - pip install tox tox-travis codecov
+
+after_success:
+  - codecov
+script:
+  - tox

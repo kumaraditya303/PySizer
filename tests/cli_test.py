@@ -1,8 +1,10 @@
+import os
+
 import pytest
 from click.testing import CliRunner
 from PIL import Image
 from pysizer import main
-from pysizer.pysizer import resize
+from pysizer.cli import resize
 
 
 @pytest.fixture
@@ -30,4 +32,5 @@ def test_pysizer_resize(runner: CliRunner):
     with runner.isolated_filesystem():
         with open("test.jpg", "w") as f:
             Image.new("RGB", (100, 100), (150, 0, 0)).save(f)
-            resize("test.jpg", ".", 1920, 1080)
+            os.mkdir("resized")
+            resize("test.jpg", "resized", (1920, 1080))

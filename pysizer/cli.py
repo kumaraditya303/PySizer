@@ -12,15 +12,16 @@
     Project made and maintained by Kumar Aditya 
 """
 import os
+import time
 from concurrent.futures import as_completed
 from concurrent.futures.thread import ThreadPoolExecutor
 from multiprocessing import cpu_count
-from time import perf_counter
+from typing import Tuple
 
 import click
 from PIL import Image
 
-start_time = perf_counter()
+start_time = time.perf_counter()
 
 
 @click.command()
@@ -66,20 +67,25 @@ def main(source: str, dest: str, height: int, width: int, threads: int) -> None:
     machine in this program and the current running threads is limited
     by the use of ThreadPoolExecutor and also displays a progress bar
     for the current progress.
-    """
 
-    if not os.path.exists(dest):
-        os.mkdir(dest)
+    """
+    os.chdir(source)
+    os.makedirs(dest, exist_ok=True)
     files = [
-        file for file in os.listdir(source) if file.endswith((".jpg", ".jpeg", ".png"))
+        file
+        for file in os.listdir()
+        if os.path.isfile(file) and file.endswith((".jpg", ".jpeg", ".png"))
     ]
     if len(files) == 0:
         click.secho("No pictures found!", fg="red")
-        exit()
+        os.rmdir(dest)
+        return
 
-    # Create thread pool executor with max_workers=threads
+    # Create ThreadPoolExecutor with max_workers=threads
     with ThreadPoolExecutor(max_workers=threads) as executor:
-        results = [executor.submit(resize, file, dest, height, width) for file in files]
+        results = [
+            executor.submit(resize, file, dest, (height, width)) for file in files
+        ]
         # Creates progress bar with current resizing progress
         with click.progressbar(
             length=len(files), label="Picture resizing progress: ", color="green"
@@ -88,14 +94,15 @@ def main(source: str, dest: str, height: int, width: int, threads: int) -> None:
                 bar.update(1)
 
         # After execution time
-        end_time = perf_counter()
+        end_time = time.perf_counter()
         click.secho(
             f"Picture resizing took {round(end_time-start_time,2)} seconds!", fg="green"
         )
 
 
-def resize(file: str, dest: str, height: int, width: int) -> None:
+def resize(file: str, dest: str, dimensions: Tuple[int, int]) -> None:
     """Function to resize a image with PIL Library."""
     i = Image.open(file)
-    i.thumbnail((height, width))
-    i.save(os.path.join(dest, file))
+    i.thumbnail(dimensions)
+    with open(os.path.join(dest, file), "wb") as f:
+        i.save(f)

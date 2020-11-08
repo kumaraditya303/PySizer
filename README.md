@@ -4,6 +4,14 @@
 
 # Introduction
 
+```txt  ____        ____  _              
+|  _ \ _   _/ ___|(_)_______ _ __ 
+| |_) | | | \___ \| |_  / _ \ '__|
+|  __/| |_| |___) | |/ /  __/ |   
+|_|    \__, |____/|_/___\___|_|   
+       |___/                      
+```
+
 ### PySizer is a simple python command line program to resize images efficiently by Multi Threading and is 5 times the cpu count of the machine in this program and the current running threads is limited by the use of ThreadPoolExecutor and also displays a progress bar for the current progress.
 
 # Quick Start

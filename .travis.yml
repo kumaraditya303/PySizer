@@ -9,6 +9,9 @@ python:
 install:
   - pip install tox tox-travis codecov
 
+before_script:
+  - coverage erase
+
 after_success:
   - codecov
 script:

@@ -1,5 +1,12 @@
 #!/bin/env python
 """
+     ____        ____  _
+    |  _ \ _   _/ ___|(_)_______ _ __
+    | |_) | | | \___ \| |_  / _ \ '__|
+    |  __/| |_| |___) | |/ /  __/ |
+    |_|    \__, |____/|_/___\___|_|
+           |___/
+    
     PySizer is a simple python command line program to resize images 
     efficiently by Multi Threading and is 5 times the cpu count of the 
     machine in this program and the current running threads is limited
@@ -11,12 +18,13 @@
 
     Project made and maintained by Kumar Aditya 
 """
+import glob
 import os
 import time
 from concurrent.futures import as_completed
 from concurrent.futures.thread import ThreadPoolExecutor
 from multiprocessing import cpu_count
-from typing import Tuple
+from typing import List, Tuple
 
 import click
 from PIL import Image
@@ -60,8 +68,27 @@ start_time = time.perf_counter()
     help="Number of threads",
     type=click.INT,
 )
-def main(source: str, dest: str, height: int, width: int, threads: int) -> None:
+@click.option(
+    "--recursive",
+    "-r",
+    default=False,
+    show_default=True,
+    help="Find images recursively",
+    is_flag=True,
+    type=click.BOOL,
+)
+def main(
+    source: str, dest: str, height: int, width: int, threads: int, recursive: bool
+) -> None:
     """
+    \b
+     ____        ____  _
+    |  _ \ _   _/ ___|(_)_______ _ __
+    | |_) | | | \___ \| |_  / _ \ '__|
+    |  __/| |_| |___) | |/ /  __/ |
+    |_|    \__, |____/|_/___\___|_|
+           |___/
+    \b
     PySizer is a simple python command line program to resize images
     efficiently by Multi Threading and is 5 times the cpu count of the
     machine in this program and the current running threads is limited
@@ -71,11 +98,15 @@ def main(source: str, dest: str, height: int, width: int, threads: int) -> None:
     """
     os.chdir(source)
     os.makedirs(dest, exist_ok=True)
-    files = [
-        file
-        for file in os.listdir()
-        if os.path.isfile(file) and file.endswith((".jpg", ".jpeg", ".png"))
-    ]
+    files: List[str] = []
+    if recursive:
+        files.extend(glob.glob("**/*.jpg", recursive=True))
+        files.extend(glob.glob("**/*.jpeg", recursive=True))
+        files.extend(glob.glob("**/*.png", recursive=True))
+    else:
+        files.extend(glob.glob("*.jpg"))
+        files.extend(glob.glob("*.jpeg"))
+        files.extend(glob.glob("*.png"))
     if len(files) == 0:
         click.secho("No pictures found!", fg="red")
         os.rmdir(dest)
@@ -88,7 +119,11 @@ def main(source: str, dest: str, height: int, width: int, threads: int) -> None:
         ]
         # Creates progress bar with current resizing progress
         with click.progressbar(
-            length=len(files), label="Picture resizing progress: ", color="green"
+            length=len(files),
+            label="Picture resizing progress: ",
+            fill_char=click.style("█", fg="green"),
+            empty_char=click.style("█", fg="bright_white"),
+            show_percent=True,
         ) as bar:
             for _ in as_completed(results):
                 bar.update(1)

@@ -21,6 +21,16 @@ def test_pysizer_main(runner: CliRunner):
         assert "Picture resizing took" in result.output
 
 
+def test_pysizer_main_recursize(runner: CliRunner):
+    with runner.isolated_filesystem():
+        os.mkdir("test")
+        with open("test/test.jpg", "w") as f:
+            Image.new("RGB", (100, 100), (150, 0, 0)).save(f)
+        result = runner.invoke(main, "-r")
+        assert result.exit_code == 0
+        assert "Picture resizing took" in result.output
+
+
 def test_pysizer_main_fail(runner: CliRunner):
     with runner.isolated_filesystem():
         result = runner.invoke(main)

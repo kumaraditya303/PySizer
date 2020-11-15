@@ -3,7 +3,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="PySizer",
-    version="0.1.1",
+    version="0.1.2",
     author="Kumar Aditya",
     author_email="",
     description="Quick & Efficient Command Line picture resizer!",

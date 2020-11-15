@@ -1,0 +1,3 @@
+from pysizer.cli import main
+
+main()

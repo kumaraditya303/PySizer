@@ -13,9 +13,6 @@
     by the use of ThreadPoolExecutor and also displays a progress bar 
     for the current progress of resizing of pictures.
 
-    Install with 
-    - pip install git+https://github.com/kumaraditya303/PySizer.git
-
     Project made and maintained by Kumar Aditya 
 """
 import glob
@@ -25,6 +22,7 @@ from concurrent.futures import as_completed
 from concurrent.futures.thread import ThreadPoolExecutor
 from multiprocessing import cpu_count
 from typing import List, Tuple
+from uuid import uuid4
 
 import click
 from PIL import Image
@@ -107,6 +105,7 @@ def main(
         files.extend(glob.glob("*.jpg"))
         files.extend(glob.glob("*.jpeg"))
         files.extend(glob.glob("*.png"))
+
     if len(files) == 0:
         click.secho("No pictures found!", fg="red")
         os.rmdir(dest)
@@ -131,7 +130,8 @@ def main(
         # After execution time
         end_time = time.perf_counter()
         click.secho(
-            f"Picture resizing took {round(end_time-start_time,2)} seconds!", fg="green"
+            f"{len(files)} pictures resized in {round(end_time-start_time,2)} seconds!",
+            fg="green",
         )
 
 
@@ -139,5 +139,8 @@ def resize(file: str, dest: str, dimensions: Tuple[int, int]) -> None:
     """Function to resize a image with PIL Library."""
     i = Image.open(file)
     i.thumbnail(dimensions)
-    with open(os.path.join(dest, file), "wb") as f:
+    # Create unique filename incase filename already exists
+    file = os.path.split(file)[1]
+    file = os.path.splitext(file)[0] + uuid4().hex[:6] + os.path.splitext(file)[1]
+    with open(os.path.join(dest, file), "w") as f:
         i.save(f)

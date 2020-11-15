@@ -1,6 +1,6 @@
 # PySizer
 
-![](https://travis-ci.com/kumaraditya303/PySizer.svg?token=Tp128txvcHsePdipY3xq&branch=master) ![](https://img.shields.io/codecov/c/github/kumaraditya303/PySizer?style=flat-square) ![](https://img.shields.io/pypi/pyversions/PySizer?style=flat-square) ![](https://img.shields.io/pypi/dm/PySizer)
+![](https://img.shields.io/github/workflow/status/kumaraditya303/PySizer/CI?logo=github&style=for-the-badge) ![](https://img.shields.io/codecov/c/github/kumaraditya303/pysizer?logo=codecov&style=for-the-badge) ![](https://img.shields.io/pypi/pyversions/PySizer?logo=python&style=for-the-badge) ![](https://img.shields.io/pypi/dm/PySizer?logo=pypi&style=for-the-badge)
 
 # Introduction
 
@@ -15,7 +15,6 @@
 
 ### PySizer is a simple python command line program to resize images efficiently by Multi Threading and is 5 times the cpu count of the machine in this program and the current running threads is limited by the use of ThreadPoolExecutor, also shows a progress bar of and also supports searching for images recursively.
 
-## Download the prebuilt binaries from [Github Releases](https://github.com/kumaraditya303/PySizer/releases)
 
 # Features
 
@@ -23,7 +22,6 @@
 - Threads count is dependent on the machine i.e 5 \* cpu count
 - Support to find images recursively
 - Auto rename file to avoid file name clashing in recursive mode
-- Binaries can be created using PyInstaller
 
 # Quick Start
 

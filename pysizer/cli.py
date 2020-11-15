@@ -1,19 +1,20 @@
 #!/bin/env python
-"""
+# -*- coding: utf-8 -*-
+r"""
      ____        ____  _
     |  _ \ _   _/ ___|(_)_______ _ __
     | |_) | | | \___ \| |_  / _ \ '__|
     |  __/| |_| |___) | |/ /  __/ |
     |_|    \__, |____/|_/___\___|_|
            |___/
-    
-    PySizer is a simple python command line program to resize images 
-    efficiently by Multi Threading and is 5 times the cpu count of the 
+
+    PySizer is a simple python command line program to resize images
+    efficiently by Multi Threading and is 5 times the cpu count of the
     machine in this program and the current running threads is limited
-    by the use of ThreadPoolExecutor and also displays a progress bar 
+    by the use of ThreadPoolExecutor and also displays a progress bar
     for the current progress of resizing of pictures.
 
-    Project made and maintained by Kumar Aditya 
+    Project made and maintained by Kumar Aditya
 """
 import glob
 import os
@@ -76,9 +77,14 @@ start_time = time.perf_counter()
     type=click.BOOL,
 )
 def main(
-    source: str, dest: str, height: int, width: int, threads: int, recursive: bool
+    source: str,
+    dest: str,
+    height: int,
+    width: int,
+    threads: int,
+    recursive: bool,
 ) -> None:
-    """
+    r"""
     \b
      ____        ____  _
     |  _ \ _   _/ ___|(_)_______ _ __
@@ -130,7 +136,8 @@ def main(
         # After execution time
         end_time = time.perf_counter()
         click.secho(
-            f"{len(files)} pictures resized in {round(end_time-start_time,2)} seconds!",
+            f"{len(files)} pictures resized in "
+            f"{round(end_time-start_time,2)} seconds!",
             fg="green",
         )
 

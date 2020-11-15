@@ -1,8 +1,10 @@
+# -*- coding: utf-8 -*-
 import os
 
 import pytest
 from click.testing import CliRunner
 from PIL import Image
+
 from pysizer import main
 from pysizer.cli import resize
 

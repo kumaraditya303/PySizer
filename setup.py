@@ -30,4 +30,5 @@ setup(
     use_scm_version=True,
     python_requires=">=3.7",
     setup_requires=["setuptools_scm", "wheel"],
+    extras_require={"tests": ["pre-commit", "pytest", "pytest-cov"]},
 )

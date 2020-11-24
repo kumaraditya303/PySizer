@@ -16,7 +16,7 @@ def runner():
 
 def test_main(runner: CliRunner):
     with runner.isolated_filesystem():
-        with open("test.jpg", "w+b") as f:
+        with open("test.jpg", "w+") as f:
             Image.new("RGB", (100, 100), (150, 0, 0)).save(f)
         result = runner.invoke(main)
         assert result.exit_code == 0
@@ -44,7 +44,7 @@ def test_main_fail(runner: CliRunner):
 
 def test_resize(runner: CliRunner):
     with runner.isolated_filesystem():
-        with open("test.jpg", "w+b") as f:
+        with open("test.jpg", "w+") as f:
             Image.new("RGB", (100, 100), (150, 0, 0)).save(f)
             os.mkdir("resized")
             resize("test.jpg", "resized", (1920, 1080))

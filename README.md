@@ -15,7 +15,6 @@
 
 ### PySizer is a simple python command line program to resize images efficiently by Multi Threading and is 5 times the cpu count of the machine in this program and the current running threads is limited by the use of ThreadPoolExecutor, also shows a progress bar of and also supports searching for images recursively.
 
-
 # Features
 
 - Quick & Efficient picture resizing
@@ -27,17 +26,15 @@
 
 - Install the project with pip
 
-```bash
-pip install git+https://github.com/kumaraditya303/PySizer.git
-Or
-pip install pysizer
+```sh
+$ pip install pysizer
 ```
 
 - Project will now be available as a command line utility
 
 - Get Help
 
-```text
+```txt
 $ pysizer --help
 Usage: pysizer [OPTIONS]
 
@@ -65,10 +62,16 @@ Options:
 
 ```
 
-- Test the project with tox
+- Test the project with pytest
 
-```bash
-$ tox
+```sh
+$ pip install -e .[tests]
+$ pytest
 ```
+
+## Demo
+
+![](https://user-images.githubusercontent.com/59607654/100200717-00e16900-2f25-11eb-8ad1-20b9ccf8cbbe.gif)
+
 
 # Project Made and Maintained By Kumar Aditya

@@ -84,7 +84,7 @@ def main(
     threads: int,
     recursive: bool,
 ) -> None:
-    r"""
+    """
     \b
      ____        ____  _
     |  _ \ _   _/ ___|(_)_______ _ __

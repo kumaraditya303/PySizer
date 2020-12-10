@@ -1,5 +1,7 @@
 #!/bin/env python
 # -*- coding: utf-8 -*-
+from pathlib import Path
+
 from setuptools import setup
 
 setup(
@@ -7,14 +9,14 @@ setup(
     author="Kumar Aditya",
     author_email="",
     description="Quick & Efficient Command Line picture resizer!",
-    long_description=open("README.md").read(),
+    long_description=Path("README.md").read_text(),
     long_description_content_type="text/markdown",
     license="MIT",
     keywords="Pillow ThreadPoolExecutor",
     url="https://github.com/kumaraditya303/PySizer",
     packages=["pysizer"],
     include_package_data=True,
-    install_requires=["Pillow>=8.0.1,<9.0.0", "click>=7.1.2,<8.0.0"],
+    install_requires=["Pillow==8.0.0", "click==7.1.2"],
     entry_points={"console_scripts": ["pysizer=pysizer:main"]},
     classifiers=[
         "Programming Language :: Python",
@@ -30,5 +32,7 @@ setup(
     use_scm_version=True,
     python_requires=">=3.7",
     setup_requires=["setuptools_scm", "wheel"],
-    extras_require={"tests": ["pre-commit", "pytest", "pytest-cov"]},
+    extras_require={
+        "tests": ["pre-commit==2.9.0", "pytest==6.1.0", "pytest-cov==2.10.1"]
+    },
 )

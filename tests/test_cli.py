@@ -42,6 +42,16 @@ def test_main_fail(runner: CliRunner):
         assert "No pictures found!" in result.output
 
 
+def test_main_verbose(runner: CliRunner):
+    with runner.isolated_filesystem():
+        with open("test.jpg", "w+") as f:
+            Image.new("RGB", (100, 100), (150, 0, 0)).save(f)
+        result = runner.invoke(main, "-v")
+        assert result.exit_code == 0
+        assert "Pictures to resize ⬇" in result.output
+        assert "test.jpg" in result.output
+
+
 def test_resize(runner: CliRunner):
     with runner.isolated_filesystem():
         with open("test.jpg", "w+") as f:

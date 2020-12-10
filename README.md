@@ -58,8 +58,8 @@ Options:
   --width INTEGER    Image width  [default: 1920]
   --threads INTEGER  Number of threads  [default: 40]
   -r, --recursive    Find images recursively  [default: False]
+  -v, --verbose      Verbose output  [default: False]
   --help             Show this message and exit.
-
 ```
 
 - Test the project with pytest

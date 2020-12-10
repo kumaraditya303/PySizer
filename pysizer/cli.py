@@ -19,8 +19,7 @@ r"""
 import glob
 import os
 import time
-from concurrent.futures import as_completed
-from concurrent.futures.thread import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from multiprocessing import cpu_count
 from typing import List, Tuple
 from uuid import uuid4
@@ -44,7 +43,7 @@ start_time = time.perf_counter()
     default="resized",
     show_default=True,
     help="Destination",
-    type=click.Path(exists=False),
+    type=click.Path(),
 )
 @click.option(
     "--height",
@@ -76,6 +75,15 @@ start_time = time.perf_counter()
     is_flag=True,
     type=click.BOOL,
 )
+@click.option(
+    "--verbose",
+    "-v",
+    default=False,
+    show_default=True,
+    help="Verbose output",
+    is_flag=True,
+    type=click.BOOL,
+)
 def main(
     source: str,
     dest: str,
@@ -83,6 +91,7 @@ def main(
     width: int,
     threads: int,
     recursive: bool,
+    verbose: bool,
 ) -> None:
     """
     \b
@@ -117,6 +126,10 @@ def main(
         os.rmdir(dest)
         return
 
+    if verbose:
+        print("Pictures to resize ⬇")
+        print(*files, sep="\n")
+
     # Create ThreadPoolExecutor with max_workers=threads
     with ThreadPoolExecutor(max_workers=threads) as executor:
         results = [
@@ -142,7 +155,11 @@ def main(
         )
 
 
-def resize(file: str, dest: str, dimensions: Tuple[int, int]) -> None:
+def resize(
+    file: str,
+    dest: str,
+    dimensions: Tuple[int, int],
+) -> None:
     """Function to resize a image with PIL Library."""
     i = Image.open(file)
     i.thumbnail(dimensions)

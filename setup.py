@@ -33,6 +33,6 @@ setup(
     python_requires=">=3.7",
     setup_requires=["setuptools_scm", "wheel"],
     extras_require={
-        "tests": ["pre-commit==2.9.3", "pytest==6.2.1", "pytest-cov==2.10.1"]
+        "tests": ["pre-commit==2.9.3", "pytest==6.2.1", "pytest-cov==2.11.1"]
     },
 )

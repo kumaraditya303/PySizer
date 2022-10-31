@@ -16,7 +16,7 @@ setup(
     url="https://github.com/kumaraditya303/PySizer",
     packages=["pysizer"],
     include_package_data=True,
-    install_requires=["Pillow==9.0.1", "click==8.0.1"],
+    install_requires=["Pillow==9.3.0", "click==8.0.1"],
     entry_points={"console_scripts": ["pysizer=pysizer:main"]},
     classifiers=[
         "Programming Language :: Python",
